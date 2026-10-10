@@ -19,7 +19,6 @@
    output  logic        mem_write,         // Enables writing on  memory
    output  logic        branch,            // Signals a branch to the top level
     
-    
    output  opcode_alu_e  op_alu       // outputs the enum corresponding the ALU operation 
  );
 

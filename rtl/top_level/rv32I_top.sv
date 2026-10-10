@@ -21,6 +21,7 @@ module rv32I_top import isa_pkg::*;(
 // core connections
 logic [XLEN-1:0] pc;
 logic [XLEN-1:0] inst;
+logic mem_ready;
 
 // memory connections
 logic [XLEN-1:0] dmem_rdata;
@@ -42,7 +43,8 @@ rv32I_core instancecore (
     .dmem_addr(dmem_addr),
     .dmem_rdata(dmem_rdata),
     .dmem_wdata(dmem_wdata),
-    .dmem_we(dmem_we)
+    .dmem_we(dmem_we),
+    .mem_ready(mem_ready)
 );
 
 // instruction memory instance
@@ -58,7 +60,9 @@ data_memory instancedatamem(
     .we(dmem_we),
     .address(dmem_addr),
     .rdata(dmem_rdata),
-    .wdata(dmem_wdata)
+    .wdata(dmem_wdata),
+    .mem_ready(mem_ready),
+    .rset_n(rset_n)
 );
 
 

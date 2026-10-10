@@ -10,6 +10,7 @@ module rv32I_core   import isa_pkg::*;
     input  logic            rset_n,          //  reset
     output logic [XLEN-1:0] pc,             //  program counter
     input  logic [XLEN-1:0] inst,           //  full instruction
+    input  logic            mem_ready,      // ADDED MEM_READY CONDITION
 
     input  logic [XLEN-1:0] dmem_rdata,  
     output logic [XLEN-1:0] dmem_addr,      //  write address in memory
@@ -26,6 +27,7 @@ module rv32I_core   import isa_pkg::*;
     logic [XLEN-1:0] pc_next;
     logic [XLEN-1:0] pc_4;
     logic [XLEN-1:0] pc_target;
+   
     
     // immediate generator
     logic [XLEN-1:0]    imm_exit;
@@ -58,6 +60,7 @@ module rv32I_core   import isa_pkg::*;
 assign pc_4         =  pc + 32'd4;
 assign pc_target    =  pc + imm_exit;
 
+
 // multiplexer to select the correct PC (using and gate between branch and zero flag)
 assign pc_next = (branch & zero_flag)? pc_target:pc_4;
 
@@ -83,10 +86,11 @@ assign dmem_wdata   =  rs2_data;
         .clk(clk),              
         .pc_next(pc_next),
         .rset_n(rset_n),
-        .pc(pc)
+        .pc(pc),
+        .mem_ready(mem_ready)
     );
 
-    // 2) control_unit instance (uses only )
+    // 2) control_unit instance 
     control_unit instancecu (
         .alu_sel(alu_sel),              // connected to the ALU multiplexer
         .branch(branch),                // connected to the AND gate with the zero falg
@@ -97,7 +101,7 @@ assign dmem_wdata   =  rs2_data;
         .mem_write(dmem_we),      // connected to the writeback multiplexer
         .op_alu(op_alu),
         .reg_write(reg_write)
-    );
+        );
 
     //3) imm_gen instance
     imm_gen instanceimm (
