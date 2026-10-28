@@ -17,9 +17,3 @@ This type of memory has a very **fast read time**, but a **slower write time** (
 ## Josephson Junction 
 
 #
-
-
-my previous github repository: https://github.com/olegpetryshyn/riscV_CPU  
-David A. Patterson, John L. Hennessy — "Computer Organization and Design RISC-V Edition: The Hardware Software  Interface"
-Sarah L. Harris, David Harris — "Digital Design and Computer Architecture: RISC-V Edition" (Morgan Kaufmann)
-specifiche di Bus Standard per SoC (Wishbone B4 & ARM AMBA APB/AXI)](https://github.com/pbing/ibex_wb
